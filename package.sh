@@ -1,36 +1,42 @@
 #!/usr/bin/env sh
 
-if [ $# -ne 1 ]; then
-    echo "Usage: ./package.sh <namespace>"
-    exit 0
-fi
+yes | rm output
+yes | rm python_extras_27.zip
+yes | rm python_27.zip
 
-export ROOTDIR=$(dirname $(readlink -f $0))
-export PACKAGE=$1
+# 1) build python_27.zip
+mkdir -p output/python/bin
+mkdir -p output/python/lib/python2.7/lib-dynload
 
-yes | rm -r $ROOTDIR/release/$PACKAGE
+cp -r build/bin/python  output/python/bin/python
+cp -r build/lib/libpython2.7.so  output/python/lib/libpython2.7.so
+cp -r libs/armeabi/libsqlite3.so  output/python/lib/libsqlite3.so
+cp -r libs/armeabi/libcrypt.so  output/python/lib/libcrypt.so
+cp -r openssl/libs/armeabi/libcrypto.so  output/python/lib/libcrypto.so
+cp -r openssl/libs/armeabi/libssl.so  output/python/lib/libssl.so
+cp -r build/lib/python2.7/lib-dynload/*  output/python/lib/python2.7/lib-dynload/
+cp -r pycrypto-2.6/build/lib*/Crypto output/python/lib/python2.7/lib-dynload/
+mv psutil-0.6.1/build/lib*/*.so psutil-0.6.1/build/lib*/psutil
+cp -r psutil-0.6.1/build/lib*/psutil output/python/lib/python2.7/lib-dynload/
+#find pycrypto-2.6/build/lib* -name "*.so" -exec cp -v {} output/python/lib/python2.7/lib-dynload/ \;
 
-mkdir -p $ROOTDIR/release/$PACKAGE/files/python/bin
-mkdir -p $ROOTDIR/release/$PACKAGE/files/python/include
-mkdir -p $ROOTDIR/release/$PACKAGE/files/python/lib/python2.7/lib-dynload
-mkdir -p $ROOTDIR/release/$PACKAGE/files/python/lib/python2.7/config
-mkdir -p $ROOTDIR/release/$PACKAGE/extras/python
+cd output
+zip -r ../python_27.zip python
+cd ..
 
-cat $ROOTDIR/standalone_python.sh | sed -e s"/<PACKAGE>/$PACKAGE/g" > $ROOTDIR/release/$PACKAGE/files/python/bin/standalone_python.sh
-cp -r $ROOTDIR/build/bin/python $ROOTDIR/release/$PACKAGE/files/python/bin/python
-cp -r $ROOTDIR/build/include/* $ROOTDIR/release/$PACKAGE/files/python/include/
-cp -r $ROOTDIR/build/lib/libpython2.7.so $ROOTDIR/release/$PACKAGE/files/python/lib/libpython2.7.so
-cp -r $ROOTDIR/libs/armeabi/libsqlite3.so $ROOTDIR/release/$PACKAGE/files/python/lib/libsqlite3.so
-cp -r $ROOTDIR/build/lib/python2.7/lib-dynload/* $ROOTDIR/release/$PACKAGE/files/python/lib/python2.7/lib-dynload/
-cp -r $ROOTDIR/build/lib/python2.7/config/* $ROOTDIR/release/$PACKAGE/files/python/lib/python2.7/config/
-cp -r $ROOTDIR/build/lib/python2.7/* $ROOTDIR/release/$PACKAGE/extras/python/
+# 2) build python_extras_27.zip
+mkdir -p output/extras/python
 
-#virtualenv
-cp -r $VIRTUAL_ENV/lib/python2.7/site-packages $ROOTDIR/release/$PACKAGE/files/python/lib/python2.7/site-packages
+cp -r build/lib/python2.7/* output/extras/python/
+#cp -r pycrypto-2.6/build/lib*/* output/extras/python/ # import from site-packages not working
 
-cd $ROOTDIR/release/$PACKAGE/extras/python/
-rm `find . | grep -v "so$\|py$"`
+cd output/extras/python
+rm -rf config
+rm -rf lib-dynload
+rm -v `find . | grep "\.so$\|.pyc$\|.egg-info$\|.doc$\|.pyo$\|.txt$"`
 rm -r `find . | grep test`
+cp ../../../android.py .
 
-adb push $ROOTDIR/release/$PACKAGE/files/ /data/data/$PACKAGE/files
-adb push $ROOTDIR/release/$PACKAGE/extras/ /mnt/sdcard/$PACKAGE/extras
+cd ..
+zip -r ../../python_extras_27.zip python
+
