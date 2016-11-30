@@ -40,7 +40,7 @@ Reference:
 3. check your gcc version, make sure you are using gcc-4.4, mine defaulted to gcc-4.6. I also changed default to gcov-4.4, g++-4.4.
 4. [android-ndk-r7c](http://dl.google.com/android/ndk/android-ndk-r7c-linux-x86.tar.bz2)
 5. [andriod-sdk-linux](https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz)
-6. the site.py file inside python_extras_27.zip won't work, a work around for now is to replace it with the site.py from android-python27 project.
+6. the `site.py` file inside `python_extras_27.zip` won't work, a work around for now is to replace it with the `site.py` from `android-python27` project.
 
 -------
 
