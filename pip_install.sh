@@ -20,7 +20,7 @@ export ARCH="armeabi"
 #export OFLAG="-Os"
 #export OFLAG="-O2"
 
-export CFLAGS="-mandroid $OFLAG -fomit-frame-pointer --sysroot $NDKPLATFORM -DNO_MALLINFO=1 -I$ROOTDIR/build/include/python2.7"
+export CFLAGS="-fPIC -mandroid $OFLAG -fomit-frame-pointer --sysroot $NDKPLATFORM -DNO_MALLINFO=1 -I$ROOTDIR/build/include/python2.7"
 #if [ $ARCH == "armeabi-v7a" ]; then
 #    CFLAGS+=" -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -mthumb"
 #fi
