@@ -4,11 +4,11 @@ export ROOTDIR=$(dirname $(readlink -f $0))
 export HOSTPYTHON=$ROOTDIR/hostpython
 export HOSTPGEN=$ROOTDIR/hostpgen
 
-export NDK="$HOME/Desktop/android-ndk-r7c"
+export NDK="$HOME/Desktop/android-ndk-r13b"
 export SDK="$HOME/Desktop/android-sdk-linux/"
-export NDKPLATFORM="$NDK/platforms/android-9/arch-arm"
+export NDKPLATFORM="$NDK/platforms/android-24/arch-arm"
 
-export PATH="$NDK/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/:$NDK:$SDK/tools:$PATH"
+export PATH="$NDK/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86_64/bin/:$NDK:$SDK/tools:$PATH"
 export PATH="$ROOTDIR/prebuilt:$PATH"
 
 export PYVERSION="2.7.2"
