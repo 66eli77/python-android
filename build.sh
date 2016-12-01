@@ -4,8 +4,8 @@ export ROOTDIR=$(dirname $(readlink -f $0))
 export HOSTPYTHON=$ROOTDIR/hostpython
 export HOSTPGEN=$ROOTDIR/hostpgen
 
-export NDK="$HOME/source/android-ndk" #change this to point to your NDK folder
-export SDK="$HOME/source/android-sdk/" #change this to point to your SDK folder
+export NDK="$HOME/Desktop/android-ndk-r7c" #change this to point to your NDK folder
+export SDK="$HOME/Desktop/android-sdk-linux/" #change this to point to your SDK folder
 export NDKPLATFORM="$NDK/platforms/android-9/arch-arm"
 
 export PATH="$NDK/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/:$NDK:$SDK/tools:$PATH"
@@ -19,9 +19,9 @@ export ARCH="armeabi"
 #export OFLAG="-Os"
 #export OFLAG="-O2"
 
-export CFLAGS="-mandroid $OFLAG -fomit-frame-pointer --sysroot $NDKPLATFORM -DNO_MALLINFO=1 -fPIC"
+export CFLAGS="-fPIC -mandroid $OFLAG -fomit-frame-pointer --sysroot $NDKPLATFORM -DNO_MALLINFO=1"
 if [ $ARCH == "armeabi-v7a" ]; then
-    CFLAGS+=" -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -mthumb"
+    CFLAGS+="-fPIC -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -mthumb"
 fi
 export CXXFLAGS="$CFLAGS"
 
