@@ -36,5 +36,5 @@ fi
 cd $ROOTDIR
 
 if [ ! -e 'openssl' ]; then
-    git clone https://github.com/guardianproject/openssl-android.git openssl
+    git clone https://github.com/66eli77/openssl-android.git openssl
 fi

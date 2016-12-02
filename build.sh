@@ -8,7 +8,7 @@ export NDK="$HOME/Desktop/android-ndk-r13b" #change this to point to your NDK fo
 export SDK="$HOME/Desktop/android-sdk-linux/" #change this to point to your SDK folder
 export NDKPLATFORM="$NDK/platforms/android-24/arch-arm"
 
-export PATH="$NDK/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86_64/bin/:$NDK:$SDK/tools:$PATH"
+export PATH="$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/:$NDK:$SDK/tools:$PATH"
 
 export PYVERSION="2.7.2"
 
