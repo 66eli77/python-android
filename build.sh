@@ -19,9 +19,9 @@ export ARCH="armeabi"
 #export OFLAG="-Os"
 #export OFLAG="-O2"
 
-export CFLAGS="-fPIC -mandroid $OFLAG -fomit-frame-pointer --sysroot $NDKPLATFORM -DNO_MALLINFO=1"
+export CFLAGS="-fPIC -fPIE -mandroid $OFLAG -fomit-frame-pointer --sysroot $NDKPLATFORM -DNO_MALLINFO=1"
 if [ $ARCH == "armeabi-v7a" ]; then
-    CFLAGS+="-fPIC -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -mthumb"
+    CFLAGS+=" -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -mthumb"
 fi
 export CXXFLAGS="$CFLAGS"
 
@@ -32,6 +32,7 @@ export RANLIB="arm-linux-androideabi-ranlib"
 export STRIP="arm-linux-androideabi-strip --strip-unneeded"
 export BLDSHARED="arm-linux-androideabi-gcc -shared $CFLAGS"
 export MAKE="make -j4"
+export LDFLAGS="-fPIE -pie"
 
 build_jni() {
     cd $ROOTDIR
