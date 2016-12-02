@@ -38,7 +38,7 @@ Reference:
     ```
 2. I'm using ubuntu ubuntu-14.04.5-desktop-amd64.iso (64-bit)
 3. With gcc-4.8
-4. [android-ndk-r13b](https://dl.google.com/android/repository/android-ndk-r13b-linux-x86_64.zip)
+4. [android-ndk-r7c](http://dl.google.com/android/ndk/android-ndk-r7c-linux-x86.tar.bz2)
 5. [andriod-sdk-linux](https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz)
 6. the `site.py` file inside `python_extras_27.zip` won't work, a work around for now is to replace it with the `site.py` from `android-python27` project.
 
@@ -47,8 +47,6 @@ Reference:
 8. Under `android-ndk-r13b/toolchains/x86_64-4.4.3/prebuilt/linux-x86_64/bin/` need to rename `x86_64-linux-android-gcc` to `x86_64-gcc`; `x86_64-linux-android-g++` to `x86_64-g++`; `x86_64-linux-android-strip` to `x86_64-strip`
 9. Under `android-ndk-r13b/toolchains/aarch64-linux-android-4.4.3/prebuilt/linux-x86_64/bin/` need to rename `aarch64-linux-android-g++` to `aarch64-g++`; `aarch64-linux-android-gcc` to `aarch64-gcc`; `aarch64-linux-android-strip` to `aarch64-strip`
 10. Make `openssl/AndroidManifest.xml` minSdkVersion=24
-
-
 11. In Ubuntu, `sudo apt-get install hardening-includes` and use its `hardening-check <file path>` to check position independent code.
 
 -------
